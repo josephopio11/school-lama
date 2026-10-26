@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -9,6 +10,14 @@ export default function Page() {
           <p>You may now add components and start building.</p>
           <p>We&apos;ve already added the button component for you.</p>
           <Button className="mt-2">Button</Button>
+          <div className="flex flex-col gap-2 py-4">
+            <Button variant="outline">
+              <Link href="/sign-in">Sign In</Link>
+            </Button>
+            <Button variant="">
+              <Link href="/sign-up">Sign Up</Link>
+            </Button>
+          </div>
         </div>
         <div className="font-mono text-xs text-muted-foreground">
           (Press <kbd>d</kbd> to toggle dark mode)
