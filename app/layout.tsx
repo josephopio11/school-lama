@@ -19,8 +19,9 @@ const fontMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "School Management Dashboard",
-  description: "Next.js School Management System",
+  title: "School Management System",
+  description:
+    "This is a school management system that allows you to manage your school efficiently. It is built with Next.js, Tailwind CSS, and TypeScript.",
 }
 
 export default function RootLayout({
