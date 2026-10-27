@@ -1,10 +1,23 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import InputField from "../InputField";
-import Image from "next/image";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { FaSave } from "react-icons/fa"
+import { FaChevronRight, FaX } from "react-icons/fa6"
+import { z } from "zod"
+import { Button } from "../ui/button"
+import { DialogFooter } from "../ui/dialog"
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from "../ui/field"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import { Textarea } from "../ui/textarea"
 
 const schema = z.object({
   username: z
@@ -23,16 +36,42 @@ const schema = z.object({
   birthday: z.date({ message: "Birthday is required!" }),
   sex: z.enum(["male", "female"], { message: "Sex is required!" }),
   img: z.instanceof(File, { message: "Image is required" }),
-});
+})
 
-type Inputs = z.infer<typeof schema>;
+type Inputs = z.infer<typeof schema>
+
+const months = [
+  { label: "MM", value: null },
+  { label: "01", value: "01" },
+  { label: "02", value: "02" },
+  { label: "03", value: "03" },
+  { label: "04", value: "04" },
+  { label: "05", value: "05" },
+  { label: "06", value: "06" },
+  { label: "07", value: "07" },
+  { label: "08", value: "08" },
+  { label: "09", value: "09" },
+  { label: "10", value: "10" },
+  { label: "11", value: "11" },
+  { label: "12", value: "12" },
+]
+
+const years = [
+  { label: "YYYY", value: null },
+  { label: "2024", value: "2024" },
+  { label: "2025", value: "2025" },
+  { label: "2026", value: "2026" },
+  { label: "2027", value: "2027" },
+  { label: "2028", value: "2028" },
+  { label: "2029", value: "2029" },
+]
 
 const TeacherForm = ({
   type,
   data,
 }: {
-  type: "create" | "update";
-  data?: any;
+  type: "create" | "update"
+  data?: any
 }) => {
   const {
     register,
@@ -40,46 +79,147 @@ const TeacherForm = ({
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
-  });
+  })
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+    console.log(data)
+  })
+
+  const [page, setPage] = useState(1)
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={onSubmit}>
+    <form className="flex flex-col" onSubmit={onSubmit}>
       <h1 className="text-xl font-semibold">Create a new teacher</h1>
-      <span className="text-xs text-gray-400 font-medium">
-        Authentication Information
-      </span>
-      <div className="flex justify-between flex-wrap gap-4">
-        <InputField
-          label="Username"
-          name="username"
-          defaultValue={data?.username}
-          register={register}
-          error={errors?.username}
-        />
-        <InputField
-          label="Email"
-          name="email"
-          defaultValue={data?.email}
-          register={register}
-          error={errors?.email}
-        />
-        <InputField
-          label="Password"
-          name="password"
-          type="password"
-          defaultValue={data?.password}
-          register={register}
-          error={errors?.password}
-        />
+
+      <div className="flex flex-wrap justify-between gap-4">
+        {page === 1 && (
+          <FieldGroup className="gap-4">
+            <FieldSet className="mt-4 mb-0">
+              <FieldLegend>Authentication Information</FieldLegend>
+              <FieldDescription>
+                Enter all the teacher's authentication information below. This
+                will be used to log in to the system.
+              </FieldDescription>
+            </FieldSet>
+            <Field className="mt-0 flex flex-col">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" name="email" type="email" placeholder="Email" />
+            </Field>
+            <div className="flex gap-4">
+              <Field className="flex flex-col gap-1">
+                <Label htmlFor="username">Username</Label>
+                <Input id="username" name="username" placeholder="Username" />
+              </Field>
+              <Field className="flex flex-col gap-1">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+              </Field>
+            </div>
+          </FieldGroup>
+        )}
+        {page === 2 && (
+          <FieldGroup className="gap-4">
+            <FieldSet className="mt-4 mb-0">
+              <FieldLegend>Personal Information</FieldLegend>
+              <FieldDescription>
+                Enter all the teacher's personal information below.
+              </FieldDescription>
+            </FieldSet>
+            <Field className="mt-0 flex flex-col">
+              <Label htmlFor="firstname">First name</Label>
+              <Input id="firstname" name="firstname" placeholder="Joe" />
+            </Field>
+            <Field className="mt-0 flex flex-col">
+              <Label htmlFor="lastname">Last name</Label>
+              <Input id="lastname" name="lastname" placeholder="Dohn" />
+            </Field>
+            <div className="flex gap-4"></div>
+            <div className="flex gap-4">
+              <Field className="flex flex-col gap-1">
+                <Label htmlFor="phone">Date of Birth</Label>
+                <Input
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  placeholder="Date of Birth"
+                  type="date"
+                />
+              </Field>{" "}
+              <Field className="flex flex-col gap-1">
+                <Label htmlFor="phone">Blood Type</Label>
+                <Input id="phone" name="phone" placeholder="Phone" />
+              </Field>
+            </div>
+          </FieldGroup>
+        )}
+        {page === 3 && (
+          <FieldGroup className="gap-4">
+            <FieldSet className="mt-4 mb-0">
+              <FieldLegend>Address and Contact</FieldLegend>
+              <FieldDescription>
+                Enter all the teacher's address and contact information below.
+              </FieldDescription>
+            </FieldSet>
+            <Field className="flex flex-col gap-1">
+              <Label htmlFor="phone">Phone</Label>
+              <Input id="phone" name="phone" placeholder="Phone" />
+            </Field>{" "}
+            <Field className="flex flex-col gap-1">
+              <Label htmlFor="address">Address</Label>
+              <Textarea id="address" name="address" placeholder="Address" />
+            </Field>
+          </FieldGroup>
+        )}
       </div>
-      <span className="text-xs text-gray-400 font-medium">
+      <DialogFooter className="mt-4 flex w-full">
+        <div className="flex w-full justify-between">
+          {page === 1 ? (
+            <Button
+              type="button"
+              className="flex items-center gap-2"
+              variant="outline"
+            >
+              <FaX className="size-2" />
+              Cancel
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setPage(page - 1)}
+              className="flex items-center gap-2"
+            >
+              <FaChevronRight className="size-2 rotate-180" />
+              Previous
+            </Button>
+          )}
+          {page < 3 ? (
+            <Button
+              type="button"
+              onClick={() => setPage(page + 1)}
+              className="flex items-center gap-2"
+            >
+              Next
+              <FaChevronRight className="size-2" />
+            </Button>
+          ) : (
+            <>
+              <Button className="" type="submit">
+                {type === "create" ? "Create" : "Update"}
+                <FaSave className="size-4" />
+              </Button>
+            </>
+          )}
+        </div>
+      </DialogFooter>
+      {/* <span className="text-xs font-medium text-gray-400">
         Personal Information
-      </span>
-      <div className="flex justify-between flex-wrap gap-4">
+      </span> */}
+      {/* <div className="flex flex-wrap justify-between gap-4">
         <InputField
           label="First Name"
           name="firstName"
@@ -123,10 +263,10 @@ const TeacherForm = ({
           error={errors.birthday}
           type="date"
         />
-        <div className="flex flex-col gap-2 w-full md:w-1/4">
+        <div className="flex w-full flex-col gap-2 md:w-1/4">
           <label className="text-xs text-gray-500">Sex</label>
           <select
-            className="ring-[1.5px] ring-gray-300 p-2 rounded-md text-sm w-full"
+            className="w-full rounded-md p-2 text-sm ring-[1.5px] ring-gray-300"
             {...register("sex")}
             defaultValue={data?.sex}
           >
@@ -139,9 +279,9 @@ const TeacherForm = ({
             </p>
           )}
         </div>
-        <div className="flex flex-col gap-2 w-full md:w-1/4 justify-center">
+        <div className="flex w-full flex-col justify-center gap-2 md:w-1/4">
           <label
-            className="text-xs text-gray-500 flex items-center gap-2 cursor-pointer"
+            className="flex cursor-pointer items-center gap-2 text-xs text-gray-500"
             htmlFor="img"
           >
             <Image src="/upload.png" alt="" width={28} height={28} />
@@ -154,12 +294,12 @@ const TeacherForm = ({
             </p>
           )}
         </div>
-      </div>
-      <button className="bg-blue-400 text-white p-2 rounded-md">
+      </div> */}
+      {/* <button className="rounded-md bg-blue-400 p-2 text-white">
         {type === "create" ? "Create" : "Update"}
-      </button>
+      </button> */}
     </form>
-  );
-};
+  )
+}
 
-export default TeacherForm;
+export default TeacherForm

@@ -1,15 +1,16 @@
-import FormModal from "@/components/FormModal";
-import Pagination from "@/components/Pagination";
-import Table from "@/components/Table";
-import TableSearch from "@/components/TableSearch";
-import { role, subjectsData } from "@/lib/data";
-import Image from "next/image";
+import FormModal from "@/components/FormModal"
+import Pagination from "@/components/Pagination"
+import Table from "@/components/Table"
+import TableSearch from "@/components/TableSearch"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { role, subjectsData } from "@/lib/data"
+import { FaFilter, FaSort } from "react-icons/fa"
 
 type Subject = {
-  id: number;
-  name: string;
-  teachers: string[];
-};
+  id: number
+  name: string
+  teachers: string[]
+}
 
 const columns = [
   {
@@ -25,13 +26,13 @@ const columns = [
     header: "Actions",
     accessor: "action",
   },
-];
+]
 
 const SubjectListPage = () => {
   const renderRow = (item: Subject) => (
     <tr
       key={item.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+      className="border-b border-primary/20 text-sm even:bg-chart-1/5 hover:bg-primary/10"
     >
       <td className="flex items-center gap-4 p-4">{item.name}</td>
       <td className="hidden md:table-cell">{item.teachers.join(",")}</td>
@@ -46,32 +47,36 @@ const SubjectListPage = () => {
         </div>
       </td>
     </tr>
-  );
+  )
 
   return (
-    <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
+    <Card className="m-4 mt-0 flex-1">
       {/* TOP */}
-      <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All Subjects</h1>
-        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+      <CardHeader className="flex items-center justify-between">
+        <h1 className="hidden text-lg font-semibold md:block">All Subjects</h1>
+        <div className="flex w-full flex-col items-center gap-4 md:w-auto md:flex-row">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <Image src="/filter.png" alt="" width={14} height={14} />
+            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+              {/* <Image src="/filter.png" alt="" width={14} height={14} /> */}
+              <FaFilter className="text-gray-400" />
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <Image src="/sort.png" alt="" width={14} height={14} />
+            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+              {/* <Image src="/sort.png" alt="" width={14} height={14} /> */}
+              <FaSort className="text-gray-400" />
             </button>
             {role === "admin" && <FormModal table="teacher" type="create" />}
           </div>
         </div>
-      </div>
+      </CardHeader>
       {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={subjectsData} />
-      {/* PAGINATION */}
-      <Pagination />
-    </div>
-  );
-};
+      <CardContent>
+        <Table columns={columns} renderRow={renderRow} data={subjectsData} />
+        {/* PAGINATION */}
+        <Pagination />
+      </CardContent>
+    </Card>
+  )
+}
 
-export default SubjectListPage;
+export default SubjectListPage

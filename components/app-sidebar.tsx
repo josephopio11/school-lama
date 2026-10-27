@@ -2,7 +2,6 @@
 
 import * as React from "react"
 
-import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -15,63 +14,111 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, Settings2Icon, CircleHelpIcon, SearchIcon, DatabaseIcon, FileChartColumnIcon, FileIcon, CommandIcon } from "lucide-react"
+import {
+  BookCheck,
+  BookOpenCheck,
+  CalendarCheck,
+  CameraIcon,
+  CircleHelpIcon,
+  ClipboardPenLine,
+  CommandIcon,
+  Cuboid,
+  FileTextIcon,
+  GraduationCap,
+  House,
+  ListTodo,
+  MegaphoneIcon,
+  MessageSquareText,
+  Newspaper,
+  PresentationIcon,
+  SearchIcon,
+  Settings2Icon,
+  UserSquareIcon,
+  UsersRoundIcon,
+} from "lucide-react"
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Jane Omatakirya",
+    email: "jane@lovesJesus.com",
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: (
-        <LayoutDashboardIcon
-        />
-      ),
+      title: "Home",
+      url: "/dashboard",
+      icon: <House />,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: (
-        <ListIcon
-        />
-      ),
+      title: "Teachers",
+      url: "/dashboard/list/teachers",
+      icon: <GraduationCap />,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: (
-        <ChartBarIcon
-        />
-      ),
+      title: "Students",
+      url: "/dashboard/list/students",
+      icon: <UsersRoundIcon />,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: (
-        <FolderIcon
-        />
-      ),
+      title: "Parents",
+      url: "/dashboard/list/parents",
+      icon: <UserSquareIcon />,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: (
-        <UsersIcon
-        />
-      ),
+      title: "Subjects",
+      url: "/dashboard/list/subjects",
+      icon: <Newspaper />,
+    },
+    {
+      title: "Classes",
+      url: "/dashboard/list/classes",
+      icon: <PresentationIcon />,
+    },
+    {
+      title: "Lessons",
+      url: "/dashboard/list/lessons",
+      icon: <ClipboardPenLine />,
+    },
+    {
+      title: "Exams",
+      url: "/dashboard/list/exams",
+      icon: <Cuboid />,
+    },
+    {
+      title: "Assignments",
+      url: "/dashboard/list/assignments",
+      icon: <BookCheck />,
+    },
+    {
+      title: "Results",
+      url: "/dashboard/list/results",
+      icon: <BookOpenCheck />,
+    },
+    {
+      title: "Attendance",
+      url: "/dashboard/list/attendance",
+      icon: <ListTodo />,
+    },
+    {
+      title: "Events",
+      url: "/dashboard/list/events",
+      icon: <CalendarCheck />,
+    },
+    {
+      title: "Messages",
+      url: "/dashboard/list/messages",
+      icon: <MessageSquareText />,
+    },
+    {
+      title: "Announcements",
+      url: "/dashboard/list/announcements",
+      icon: <MegaphoneIcon />,
     },
   ],
   navClouds: [
     {
       title: "Capture",
-      icon: (
-        <CameraIcon
-        />
-      ),
+      icon: <CameraIcon />,
       isActive: true,
       url: "#",
       items: [
@@ -87,10 +134,7 @@ const data = {
     },
     {
       title: "Proposal",
-      icon: (
-        <FileTextIcon
-        />
-      ),
+      icon: <FileTextIcon />,
       url: "#",
       items: [
         {
@@ -105,10 +149,7 @@ const data = {
     },
     {
       title: "Prompts",
-      icon: (
-        <FileTextIcon
-        />
-      ),
+      icon: <FileTextIcon />,
       url: "#",
       items: [
         {
@@ -126,52 +167,17 @@ const data = {
     {
       title: "Settings",
       url: "#",
-      icon: (
-        <Settings2Icon
-        />
-      ),
+      icon: <Settings2Icon />,
     },
     {
       title: "Get Help",
       url: "#",
-      icon: (
-        <CircleHelpIcon
-        />
-      ),
+      icon: <CircleHelpIcon />,
     },
     {
       title: "Search",
       url: "#",
-      icon: (
-        <SearchIcon
-        />
-      ),
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: (
-        <DatabaseIcon
-        />
-      ),
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: (
-        <FileChartColumnIcon
-        />
-      ),
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: (
-        <FileIcon
-        />
-      ),
+      icon: <SearchIcon />,
     },
   ],
 }
@@ -196,7 +202,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
