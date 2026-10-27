@@ -1,6 +1,8 @@
 "use client"
-import Image from "next/image"
+import { BiMaleFemale } from "react-icons/bi"
+import { FaEllipsisH } from "react-icons/fa"
 import { RadialBar, RadialBarChart, ResponsiveContainer } from "recharts"
+import { Card, CardContent, CardHeader } from "./ui/card"
 
 const data = [
   {
@@ -22,14 +24,15 @@ const data = [
 
 const CountChart = () => {
   return (
-    <div className="h-full w-full rounded-xl bg-white p-4">
+    <Card className="@container/card h-full w-full p-4">
       {/* TITLE */}
-      <div className="flex items-center justify-between">
+      <CardHeader className="flex items-center justify-between">
         <h1 className="text-lg font-semibold">Students</h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
-      </div>
+        <FaEllipsisH />
+        {/* <Image src="/assets/moreDark.png" alt="" width={20} height={20} /> */}
+      </CardHeader>
       {/* CHART */}
-      <div className="relative h-[75%] w-full">
+      <CardContent className="relative h-[75%] w-full">
         <ResponsiveContainer>
           <RadialBarChart
             cx="50%"
@@ -42,14 +45,15 @@ const CountChart = () => {
             <RadialBar background dataKey="count" />
           </RadialBarChart>
         </ResponsiveContainer>
-        <Image
+        <BiMaleFemale className="absolute top-1/2 left-1/2 h-12 w-12 -translate-x-1/2 -translate-y-1/2 fill-accent-foreground text-accent-foreground" />
+        {/* <Image
           src="/maleFemale.png"
           alt=""
           width={50}
           height={50}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-        />
-      </div>
+        /> */}
+      </CardContent>
       {/* BOTTOM */}
       <div className="flex justify-center gap-16">
         <div className="flex flex-col gap-1">
@@ -63,7 +67,7 @@ const CountChart = () => {
           <h2 className="text-xs text-gray-300">Girls (45%)</h2>
         </div>
       </div>
-    </div>
+    </Card>
   )
 }
 

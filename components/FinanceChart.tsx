@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import { FaEllipsisH } from "react-icons/fa"
 import {
   CartesianGrid,
   Legend,
@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { Card, CardHeader } from "./ui/card"
 
 const data = [
   {
@@ -77,11 +78,11 @@ const data = [
 
 const FinanceChart = () => {
   return (
-    <div className="h-full w-full rounded-xl bg-white p-4">
-      <div className="flex items-center justify-between">
+    <Card className="h-full w-full p-4">
+      <CardHeader className="flex items-center justify-between">
         <h1 className="text-lg font-semibold">Finance</h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
-      </div>
+        <FaEllipsisH />
+      </CardHeader>
       <ResponsiveContainer width="100%" height="90%">
         <LineChart
           width={500}
@@ -128,7 +129,7 @@ const FinanceChart = () => {
           />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   )
 }
 

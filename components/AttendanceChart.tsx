@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image"
+import { FaEllipsisH } from "react-icons/fa"
 import {
   Bar,
   BarChart,
@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts"
+import { Card, CardHeader } from "./ui/card"
 
 const data = [
   {
@@ -41,11 +42,12 @@ const data = [
 
 const AttendanceChart = () => {
   return (
-    <div className="h-full rounded-lg bg-white p-4">
-      <div className="flex items-center justify-between">
+    <Card className="@container/card h-full p-4">
+      <CardHeader className="flex items-center justify-between">
         <h1 className="text-lg font-semibold">Attendance</h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
-      </div>
+        {/* <Image src="/moreDark.png" alt="" width={20} height={20} /> */}
+        <FaEllipsisH />
+      </CardHeader>
       <ResponsiveContainer width="100%" height="90%">
         <BarChart width={500} height={300} data={data} barSize={20}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ddd" />
@@ -78,7 +80,7 @@ const AttendanceChart = () => {
           />
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   )
 }
 

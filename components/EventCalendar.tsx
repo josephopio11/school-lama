@@ -1,9 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { useState } from "react"
 import Calendar from "react-calendar"
-import "react-calendar/dist/Calendar.css"
+// import "react-calendar/dist/Calendar.css"
+import { FaEllipsisH } from "react-icons/fa"
+import { Card, CardContent, CardHeader } from "./ui/card"
 
 type ValuePiece = Date | null
 
@@ -35,27 +36,28 @@ const EventCalendar = () => {
   const [value, onChange] = useState<Value>(new Date())
 
   return (
-    <div className="rounded-md bg-white p-4">
+    <Card className="p-4">
       <Calendar onChange={onChange} value={value} />
       <div className="flex items-center justify-between">
         <h1 className="my-4 text-xl font-semibold">Events</h1>
-        <Image src="/moreDark.png" alt="" width={20} height={20} />
+        <FaEllipsisH />
       </div>
       <div className="flex flex-col gap-4">
         {events.map((event) => (
-          <div
-            className="odd:border-t-lamaSky even:border-t-lamaPurple rounded-md border-2 border-t-4 border-gray-100 p-5"
-            key={event.id}
-          >
-            <div className="flex items-center justify-between">
-              <h1 className="font-semibold text-gray-600">{event.title}</h1>
+          <Card className="p-4" key={event.id}>
+            <CardHeader className="flex items-center justify-between p-0">
+              <h1 className="text-lg font-semibold text-foreground">
+                {event.title}
+              </h1>
               <span className="text-xs text-gray-300">{event.time}</span>
-            </div>
-            <p className="mt-2 text-sm text-gray-400">{event.description}</p>
-          </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              <p className="mt-2 text-sm text-gray-400">{event.description}</p>
+            </CardContent>
+          </Card>
         ))}
       </div>
-    </div>
+    </Card>
   )
 }
 
