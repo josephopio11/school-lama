@@ -84,15 +84,13 @@ const TeacherListPage = () => {
         <div className="flex items-center gap-2">
           <Link href={`/dashboard/list/teachers/${item.id}`}>
             <button className="bg-lamaSky flex h-7 w-7 items-center justify-center rounded-full">
-              {/* <Image src="/assets/view.png" alt="" width={16} height={16} /> */}
               <FaEye className="size-4 text-gray-700 dark:text-gray-300" />
             </button>
           </Link>
           {role === "admin" && (
             // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-            //   <Image src="/assets/delete.png" alt="" width={16} height={16} />
-            // </button>
             <FormModal table="teacher" type="delete" id={item.id} />
+            // </button>
           )}
         </div>
       </td>

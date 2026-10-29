@@ -161,7 +161,7 @@ const FormModal = ({
       <DialogTrigger>
         <button
           type="button"
-          className={`${size} flex items-center justify-center rounded-full ${bgColor}`}
+          className={`${size} flex items-center justify-center rounded-full`}
         >
           {type === "create" && (
             <IoMdAddCircleOutline className="size-4 text-white" />
@@ -169,27 +169,14 @@ const FormModal = ({
           {type === "update" && (
             <FaRegEdit className="size-4 text-foreground" />
           )}
-          {type === "delete" && <FaRegTrashCan className="size-4 text-white" />}
+          {type === "delete" && (
+            <FaRegTrashCan className="size-4 text-destructive" />
+          )}
         </button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
+      <DialogContent className="shadow-2xl shadow-foreground/50 sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
         <Form />
-
-        {/* 
-        <FieldGroup>
-          <Field>
-            <Label htmlFor="name-1">Name</Label>
-            <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-          </Field>
-          <Field>
-            <Label htmlFor="username-1">Username</Label>
-            <Input id="username-1" name="username" defaultValue="@peduarte" />
-          </Field>
-        </FieldGroup> */}
-        {/* <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import Image from "next/image"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { FaSave } from "react-icons/fa"
@@ -18,6 +19,14 @@ import {
 } from "../ui/field"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select"
 import { Textarea } from "../ui/textarea"
 
 const schema = z.object({
@@ -40,32 +49,6 @@ const schema = z.object({
 })
 
 type Inputs = z.infer<typeof schema>
-
-const months = [
-  { label: "MM", value: null },
-  { label: "01", value: "01" },
-  { label: "02", value: "02" },
-  { label: "03", value: "03" },
-  { label: "04", value: "04" },
-  { label: "05", value: "05" },
-  { label: "06", value: "06" },
-  { label: "07", value: "07" },
-  { label: "08", value: "08" },
-  { label: "09", value: "09" },
-  { label: "10", value: "10" },
-  { label: "11", value: "11" },
-  { label: "12", value: "12" },
-]
-
-const years = [
-  { label: "YYYY", value: null },
-  { label: "2024", value: "2024" },
-  { label: "2025", value: "2025" },
-  { label: "2026", value: "2026" },
-  { label: "2027", value: "2027" },
-  { label: "2028", value: "2028" },
-  { label: "2029", value: "2029" },
-]
 
 const TeacherForm = ({
   type,
@@ -161,7 +144,9 @@ const TeacherForm = ({
   return (
     <form className="flex flex-col" onSubmit={onSubmit}>
       <DialogHeader>
-        <DialogTitle>Create a new teacher</DialogTitle>
+        <DialogTitle>
+          {type === "create" ? "Create a new teacher" : "Update teacher"}
+        </DialogTitle>
       </DialogHeader>
 
       <div className="flex flex-wrap justify-between gap-4">
@@ -176,12 +161,23 @@ const TeacherForm = ({
             </FieldSet>
             <Field className="mt-0 flex flex-col">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" placeholder="Email" />
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Email"
+                defaultValue={data?.email}
+              />
             </Field>
             <div className="flex gap-4">
               <Field className="flex flex-col gap-1">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" name="username" placeholder="Username" />
+                <Input
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  defaultValue={data?.username}
+                />
               </Field>
               <Field className="flex flex-col gap-1">
                 <Label htmlFor="password">Password</Label>
@@ -190,6 +186,7 @@ const TeacherForm = ({
                   name="password"
                   type="password"
                   placeholder="Password"
+                  defaultValue={data?.password}
                 />
               </Field>
             </div>
@@ -209,6 +206,7 @@ const TeacherForm = ({
                 id="firstname"
                 name="firstname"
                 placeholder="Joe"
+                defaultValue={data?.firstName}
                 required
               />
             </Field>
@@ -218,6 +216,7 @@ const TeacherForm = ({
                 id="lastname"
                 name="lastname"
                 placeholder="Dohn"
+                defaultValue={data?.lastName}
                 required
               />
             </Field>
@@ -230,6 +229,7 @@ const TeacherForm = ({
                   name="dateOfBirth"
                   placeholder="Date of Birth"
                   type="date"
+                  defaultValue={data?.dateOfBirth}
                   required
                 />
               </Field>{" "}
@@ -239,6 +239,47 @@ const TeacherForm = ({
                   id="bloodType"
                   name="bloodType"
                   placeholder="BloodType"
+                  defaultValue={data?.bloodType}
+                />
+              </Field>
+            </div>{" "}
+            <div className="flex gap-4">
+              <Field className="flex flex-col gap-1">
+                <Label htmlFor="sex">Gender</Label>
+                <Select defaultValue={data?.sex}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field className="flex flex-col gap-1">
+                <Label
+                  htmlFor="img"
+                  className="flex h-full cursor-pointer items-center justify-center gap-2 rounded-md text-xs shadow-xl transition-all duration-100 hover:shadow-2xl active:shadow"
+                >
+                  <Image
+                    src="/assets/upload.png"
+                    alt=""
+                    width={28}
+                    height={28}
+                  />
+                  <span>Upload a photo</span>
+                </Label>
+
+                <input
+                  // name="img"
+                  {...register("img")}
+                  placeholder="img"
+                  // defaultValue={data?.bloodType}
+                  type="file"
+                  id="img"
+                  className="hidden"
                 />
               </Field>
             </div>
@@ -254,11 +295,21 @@ const TeacherForm = ({
             </FieldSet>
             <Field className="flex flex-col gap-1">
               <Label htmlFor="phone">Phone</Label>
-              <Input id="phone" name="phone" placeholder="Phone" />
-            </Field>{" "}
+              <Input
+                id="phone"
+                name="phone"
+                placeholder="Phone"
+                defaultValue={data?.phone}
+              />
+            </Field>
             <Field className="flex flex-col gap-1">
               <Label htmlFor="address">Address</Label>
-              <Textarea id="address" name="address" placeholder="Address" />
+              <Textarea
+                id="address"
+                name="address"
+                placeholder="Address"
+                defaultValue={data?.address}
+              />
             </Field>
           </FieldGroup>
         )}
@@ -325,34 +376,9 @@ const TeacherForm = ({
           register={register}
           error={errors.firstName}
         />
-        <InputField
-          label="Last Name"
-          name="lastName"
-          defaultValue={data?.lastName}
-          register={register}
-          error={errors.lastName}
-        />
-        <InputField
-          label="Phone"
-          name="phone"
-          defaultValue={data?.phone}
-          register={register}
-          error={errors.phone}
-        />
-        <InputField
-          label="Address"
-          name="address"
-          defaultValue={data?.address}
-          register={register}
-          error={errors.address}
-        />
-        <InputField
-          label="Blood Type"
-          name="bloodType"
-          defaultValue={data?.bloodType}
-          register={register}
-          error={errors.bloodType}
-        />
+       
+     
+      
         <InputField
           label="Birthday"
           name="birthday"

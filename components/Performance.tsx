@@ -1,6 +1,7 @@
 "use client"
-import Image from "next/image"
+import { FaEllipsisH } from "react-icons/fa"
 import { Pie, PieChart, ResponsiveContainer } from "recharts"
+import { Card, CardHeader } from "./ui/card"
 
 const data = [
   { name: "Group A", value: 92, fill: "#C3EBFA" },
@@ -9,11 +10,11 @@ const data = [
 
 const Performance = () => {
   return (
-    <div className="relative h-80 rounded-md bg-white p-4">
-      <div className="flex items-center justify-between">
+    <Card className="relative h-100 rounded-md bg-secondary p-4">
+      <CardHeader className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Performance</h1>
-        <Image src="/moreDark.png" alt="" width={16} height={16} />
-      </div>
+        <FaEllipsisH className="size-5 cursor-pointer" />
+      </CardHeader>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
@@ -35,7 +36,7 @@ const Performance = () => {
       <h2 className="absolute right-0 bottom-16 left-0 m-auto text-center font-medium">
         1st Semester - 2nd Semester
       </h2>
-    </div>
+    </Card>
   )
 }
 
