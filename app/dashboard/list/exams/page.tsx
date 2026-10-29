@@ -4,7 +4,8 @@ import Table from "@/components/Table"
 import TableSearch from "@/components/TableSearch"
 import { Card } from "@/components/ui/card"
 import { examsData, role } from "@/lib/data"
-import Image from "next/image"
+import { FaSortAlphaDown } from "react-icons/fa"
+import { FaFilter } from "react-icons/fa6"
 
 type Exam = {
   id: number
@@ -66,7 +67,6 @@ const ExamListPage = () => {
   return (
     <div className="px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
       <Card className="p-4 lg:px-6">
-        {" "}
         {/* TOP */}
         <div className="flex items-center justify-between">
           <h1 className="hidden text-lg font-semibold md:block">All Exams</h1>
@@ -74,10 +74,10 @@ const ExamListPage = () => {
             <TableSearch />
             <div className="flex items-center gap-4 self-end">
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/filter.png" alt="" width={14} height={14} />
+                <FaFilter className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/sort.png" alt="" width={14} height={14} />
+                <FaSortAlphaDown className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               {role === "admin" ||
                 (role === "teacher" && (

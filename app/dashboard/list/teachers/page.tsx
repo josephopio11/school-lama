@@ -6,7 +6,8 @@ import { Card } from "@/components/ui/card"
 import { role, teachersData } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
-import { FaEye } from "react-icons/fa6"
+import { FaSortAlphaDown } from "react-icons/fa"
+import { FaEye, FaFilter } from "react-icons/fa6"
 
 type Teacher = {
   id: number
@@ -109,10 +110,10 @@ const TeacherListPage = () => {
             <TableSearch />
             <div className="flex items-center gap-4 self-end">
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/assets/filter.png" alt="" width={14} height={14} />
+                <FaFilter className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/assets/sort.png" alt="" width={14} height={14} />
+                <FaSortAlphaDown className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               {role === "admin" && (
                 // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">

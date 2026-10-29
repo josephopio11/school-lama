@@ -164,7 +164,7 @@ const FormModal = ({
           className={`${size} flex items-center justify-center rounded-full`}
         >
           {type === "create" && (
-            <IoMdAddCircleOutline className="size-4 text-white" />
+            <IoMdAddCircleOutline className="size-4 text-foreground" />
           )}
           {type === "update" && (
             <FaRegEdit className="size-4 text-foreground" />
