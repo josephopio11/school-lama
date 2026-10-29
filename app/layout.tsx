@@ -1,14 +1,15 @@
-import { Geist_Mono, Inter, Merriweather, Oxanium, Geist } from "next/font/google"
+import { Geist, Geist_Mono, Oxanium } from "next/font/google"
 
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import "./globals.css"
 
-const geistHeading = Geist({subsets:['latin'],variable:'--font-heading'})
+const geistHeading = Geist({ subsets: ["latin"], variable: "--font-heading" })
 
-const oxanium = Oxanium({subsets:['latin'],variable:'--font-sans'})
+const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
@@ -40,7 +41,10 @@ export default function RootLayout({
     >
       <body>
         <TooltipProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            {children}
+            <Toaster richColors />
+          </ThemeProvider>
         </TooltipProvider>
       </body>
     </html>

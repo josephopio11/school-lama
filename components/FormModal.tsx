@@ -173,14 +173,10 @@ const FormModal = ({
         </button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
         <Form />
-        {/* <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </DialogDescription>
-        </DialogHeader>
+
+        {/* 
         <FieldGroup>
           <Field>
             <Label htmlFor="name-1">Name</Label>

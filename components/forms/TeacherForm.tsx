@@ -5,9 +5,10 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { FaSave } from "react-icons/fa"
 import { FaChevronRight, FaX } from "react-icons/fa6"
+import { toast } from "sonner"
 import { z } from "zod"
 import { Button } from "../ui/button"
-import { DialogFooter } from "../ui/dialog"
+import { DialogFooter, DialogHeader, DialogTitle } from "../ui/dialog"
 import {
   Field,
   FieldDescription,
@@ -80,8 +81,78 @@ const TeacherForm = ({
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
+  const [errorMessages, setErrorMessages] = useState<string[]>([])
+
+  const gotoNextPage = () => {
+    if (page === 1) {
+      // Validate page 1 fields
+      const email = (document.getElementById("email") as HTMLInputElement).value
+      const username = (document.getElementById("username") as HTMLInputElement)
+        .value
+      const password = (document.getElementById("password") as HTMLInputElement)
+        .value
+
+      const errors: string[] = []
+      if (!email) errors.push("Email is required.")
+      if (!username) errors.push("Username is required.")
+      if (!password) errors.push("Password is required.")
+
+      if (errors.length > 0) {
+        toast.error(errors.join("\n"))
+
+        setErrorMessages(errors)
+        return
+      }
+    }
+
+    if (page === 2) {
+      // Validate page 2 fields
+      const firstName = (
+        document.getElementById("firstname") as HTMLInputElement
+      ).value
+      const lastName = (document.getElementById("lastname") as HTMLInputElement)
+        .value
+      const dateOfBirth = (
+        document.getElementById("dateOfBirth") as HTMLInputElement
+      ).value
+      const bloodType = (
+        document.getElementById("bloodType") as HTMLInputElement
+      ).value
+
+      const errors: string[] = []
+      if (!firstName) errors.push("First name is required.")
+      if (!lastName) errors.push("Last name is required.")
+      if (!dateOfBirth) errors.push("Date of Birth is required.")
+      if (!bloodType) errors.push("Blood Type is required.")
+
+      if (errors.length > 0) {
+        toast.error(errors.join("\n"))
+        setErrorMessages(errors)
+        return
+      }
+    }
+
+    setErrorMessages([])
+    setPage((prevPage) => prevPage + 1)
+  }
 
   const onSubmit = handleSubmit((data) => {
+    if (page === 3) {
+      // Validate page 3 fields
+      const phone = (document.getElementById("phone") as HTMLInputElement).value
+      const address = (document.getElementById("address") as HTMLInputElement)
+        .value
+
+      const errors: string[] = []
+      if (!phone) errors.push("Phone is required.")
+      if (!address) errors.push("Address is required.")
+
+      if (errors.length > 0) {
+        toast.error(errors.join("\n"))
+        setErrorMessages(errors)
+        return
+      }
+    }
     console.log(data)
   })
 
@@ -89,7 +160,9 @@ const TeacherForm = ({
 
   return (
     <form className="flex flex-col" onSubmit={onSubmit}>
-      <h1 className="text-xl font-semibold">Create a new teacher</h1>
+      <DialogHeader>
+        <DialogTitle>Create a new teacher</DialogTitle>
+      </DialogHeader>
 
       <div className="flex flex-wrap justify-between gap-4">
         {page === 1 && (
@@ -132,11 +205,21 @@ const TeacherForm = ({
             </FieldSet>
             <Field className="mt-0 flex flex-col">
               <Label htmlFor="firstname">First name</Label>
-              <Input id="firstname" name="firstname" placeholder="Joe" />
+              <Input
+                id="firstname"
+                name="firstname"
+                placeholder="Joe"
+                required
+              />
             </Field>
             <Field className="mt-0 flex flex-col">
               <Label htmlFor="lastname">Last name</Label>
-              <Input id="lastname" name="lastname" placeholder="Dohn" />
+              <Input
+                id="lastname"
+                name="lastname"
+                placeholder="Dohn"
+                required
+              />
             </Field>
             <div className="flex gap-4"></div>
             <div className="flex gap-4">
@@ -147,11 +230,16 @@ const TeacherForm = ({
                   name="dateOfBirth"
                   placeholder="Date of Birth"
                   type="date"
+                  required
                 />
               </Field>{" "}
               <Field className="flex flex-col gap-1">
-                <Label htmlFor="phone">Blood Type</Label>
-                <Input id="phone" name="phone" placeholder="Phone" />
+                <Label htmlFor="bloodType">Blood Type</Label>
+                <Input
+                  id="bloodType"
+                  name="bloodType"
+                  placeholder="BloodType"
+                />
               </Field>
             </div>
           </FieldGroup>
@@ -173,6 +261,16 @@ const TeacherForm = ({
               <Textarea id="address" name="address" placeholder="Address" />
             </Field>
           </FieldGroup>
+        )}
+      </div>
+      <div>
+        {/* Render error messages here */}
+        {errorMessages.length > 0 && (
+          <div className="text-red-500">
+            {errorMessages.map((error, index) => (
+              <p key={index}>{error}</p>
+            ))}
+          </div>
         )}
       </div>
       <DialogFooter className="mt-4 flex w-full">
@@ -200,7 +298,7 @@ const TeacherForm = ({
           {page < 3 ? (
             <Button
               type="button"
-              onClick={() => setPage(page + 1)}
+              onClick={() => gotoNextPage()}
               className="flex items-center gap-2"
             >
               Next
@@ -208,7 +306,7 @@ const TeacherForm = ({
             </Button>
           ) : (
             <>
-              <Button className="" type="submit">
+              <Button className="" type="submit" onClick={() => onSubmit()}>
                 {type === "create" ? "Create" : "Update"}
                 <FaSave className="size-4" />
               </Button>
