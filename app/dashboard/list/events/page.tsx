@@ -1,18 +1,19 @@
-import FormModal from "@/components/FormModal";
-import Pagination from "@/components/Pagination";
-import Table from "@/components/Table";
-import TableSearch from "@/components/TableSearch";
-import { eventsData, role } from "@/lib/data";
-import Image from "next/image";
+import FormModal from "@/components/FormModal"
+import Pagination from "@/components/Pagination"
+import Table from "@/components/Table"
+import TableSearch from "@/components/TableSearch"
+import { Card } from "@/components/ui/card"
+import { eventsData, role } from "@/lib/data"
+import Image from "next/image"
 
 type Event = {
-  id: number;
-  title: string;
-  class: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-};
+  id: number
+  title: string
+  class: string
+  date: string
+  startTime: string
+  endTime: string
+}
 
 const columns = [
   {
@@ -42,13 +43,13 @@ const columns = [
     header: "Actions",
     accessor: "action",
   },
-];
+]
 
 const EventListPage = () => {
   const renderRow = (item: Event) => (
     <tr
       key={item.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-lamaPurpleLight"
+      className="border-b border-gray-500/50 text-sm transition-all duration-300 even:bg-primary/10 hover:bg-chart-5/10 dark:even:bg-primary/20 dark:hover:bg-chart-1/20"
     >
       <td className="flex items-center gap-4 p-4">{item.title}</td>
       <td>{item.class}</td>
@@ -66,32 +67,35 @@ const EventListPage = () => {
         </div>
       </td>
     </tr>
-  );
+  )
 
   return (
-    <div className="bg-white p-4 rounded-md flex-1 m-4 mt-0">
-      {/* TOP */}
-      <div className="flex items-center justify-between">
-        <h1 className="hidden md:block text-lg font-semibold">All Events</h1>
-        <div className="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
-          <TableSearch />
-          <div className="flex items-center gap-4 self-end">
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <Image src="/filter.png" alt="" width={14} height={14} />
-            </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              <Image src="/sort.png" alt="" width={14} height={14} />
-            </button>
-            {role === "admin" && <FormModal table="event" type="create" />}
+    <div className="px-4 *:data-[slot=card]:bg-linear-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
+      <Card className="p-4 lg:px-6">
+        {" "}
+        {/* TOP */}
+        <div className="flex items-center justify-between">
+          <h1 className="hidden text-lg font-semibold md:block">All Events</h1>
+          <div className="flex w-full flex-col items-center gap-4 md:w-auto md:flex-row">
+            <TableSearch />
+            <div className="flex items-center gap-4 self-end">
+              <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+                <Image src="/filter.png" alt="" width={14} height={14} />
+              </button>
+              <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+                <Image src="/sort.png" alt="" width={14} height={14} />
+              </button>
+              {role === "admin" && <FormModal table="event" type="create" />}
+            </div>
           </div>
         </div>
-      </div>
-      {/* LIST */}
-      <Table columns={columns} renderRow={renderRow} data={eventsData} />
-      {/* PAGINATION */}
-      <Pagination />
+        {/* LIST */}
+        <Table columns={columns} renderRow={renderRow} data={eventsData} />
+        {/* PAGINATION */}
+        <Pagination />
+      </Card>
     </div>
-  );
-};
+  )
+}
 
-export default EventListPage;
+export default EventListPage

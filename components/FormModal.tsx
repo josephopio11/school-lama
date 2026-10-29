@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useState } from "react"
+import { useState, type ReactElement } from "react"
 import { FaRegEdit } from "react-icons/fa"
 import { FaRegTrashCan } from "react-icons/fa6"
 import { IoMdAddCircleOutline } from "react-icons/io"
@@ -20,7 +20,7 @@ const StudentForm = dynamic(() => import("./forms/StudentForm"), {
 })
 
 const forms: {
-  [key: string]: (type: "create" | "update", data?: any) => JSX.Element
+  [key: string]: (type: "create" | "update", data?: any) => ReactElement
 } = {
   teacher: (type, data) => <TeacherForm type={type} data={data} />,
   student: (type, data) => <StudentForm type={type} data={data} />,
