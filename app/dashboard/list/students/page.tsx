@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card"
 import { role, studentsData } from "@/lib/data"
 import Image from "next/image"
 import Link from "next/link"
+import { FaSortAlphaDown } from "react-icons/fa"
+import { FaEye, FaFilter } from "react-icons/fa6"
 
 type Student = {
   id: number
@@ -77,7 +79,8 @@ const StudentListPage = () => {
         <div className="flex items-center gap-2">
           <Link href={`/list/teachers/${item.id}`}>
             <button className="bg-lamaSky flex h-7 w-7 items-center justify-center rounded-full">
-              <Image src="/view.png" alt="" width={16} height={16} />
+              {/* <Image src="/view.png" alt="" width={16} height={16} /> */}
+              <FaEye className="size-4 text-gray-700 dark:text-gray-300" />
             </button>
           </Link>
           {role === "admin" && (
@@ -103,10 +106,10 @@ const StudentListPage = () => {
             <TableSearch />
             <div className="flex items-center gap-4 self-end">
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/filter.png" alt="" width={14} height={14} />
+                <FaFilter className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
-                <Image src="/sort.png" alt="" width={14} height={14} />
+                <FaSortAlphaDown className="size-4 text-gray-700 dark:text-gray-300" />
               </button>
               {role === "admin" && (
                 // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
