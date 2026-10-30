@@ -167,7 +167,7 @@
   }
 
   .react-calendar__navigation__label {
-    @apply flex-grow text-sm font-medium;
+    @apply grow text-sm font-medium;
   }
 
   /* Weekday header */
